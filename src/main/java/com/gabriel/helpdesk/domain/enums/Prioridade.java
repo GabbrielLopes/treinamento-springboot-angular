@@ -2,7 +2,7 @@ package com.gabriel.helpdesk.domain.enums;
 
 import java.util.Objects;
 
-public enum Prioridades {
+public enum Prioridade {
 
     BAIXA(0, "BAIXA"),
     MEDIA(1,"MEDIA"),
@@ -11,7 +11,7 @@ public enum Prioridades {
     private Integer codigo;
     private String descricao;
 
-    Prioridades(Integer codigo, String descricao) {
+    Prioridade(Integer codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
@@ -24,12 +24,12 @@ public enum Prioridades {
         return descricao;
     }
 
-    public static Prioridades toEnum(Integer cod){
+    public static Prioridade toEnum(Integer cod){
         if(Objects.isNull(cod)){
             return null;
         }
 
-        for (Prioridades x : Prioridades.values()){
+        for (Prioridade x : Prioridade.values()){
             if(cod.equals(x.getCodigo())){
                 return x;
             }
