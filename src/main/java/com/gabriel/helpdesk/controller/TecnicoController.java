@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping(value = "tecnicos")
 public class TecnicoController {
@@ -21,6 +24,12 @@ public class TecnicoController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> buscaTecnico(@PathVariable(value = "id") Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(new TecnicoDTO(tecnicoService.buscaPorId(id)));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TecnicoDTO>> buscaTecnicos(){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                tecnicoService.buscaTecnicos().stream().map(TecnicoDTO::new).collect(Collectors.toList()));
     }
 
 }
