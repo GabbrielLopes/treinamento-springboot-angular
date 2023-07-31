@@ -34,7 +34,7 @@ public class TecnicoController {
     }
 
     @PostMapping
-    public ResponseEntity<TecnicoDTO> salvaTecnico(@RequestBody TecnicoRequestDTO requestDTO){
+    public ResponseEntity<TecnicoDTO> salvaTecnico(@RequestBody @Valid TecnicoRequestDTO requestDTO){
         Tecnico tecnico = tecnicoService.salvaTecnico(requestDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(tecnico.getId()).toUri();

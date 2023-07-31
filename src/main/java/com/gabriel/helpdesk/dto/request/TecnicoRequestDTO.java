@@ -15,12 +15,14 @@ public class TecnicoRequestDTO {
 
 
     protected Integer id;
+
+    @NotBlank(message = "Campo nome é obrigatório.")
     protected String nome;
 
-    @NotBlank(message = "Campo cpf é obrigatório.")
+    @NotBlank(message = "Campo CPF é obrigatório.")
     protected String cpf;
 
-    @NotBlank(message = "Campo email é obrigatório.")
+    @NotBlank(message = "Campo e-mail é obrigatório.")
     protected String email;
 
     @NotBlank(message = "Campo senha é obrigatório.")
