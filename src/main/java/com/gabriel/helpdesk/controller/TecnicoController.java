@@ -1,6 +1,7 @@
 package com.gabriel.helpdesk.controller;
 
 import com.gabriel.helpdesk.domain.Tecnico;
+import com.gabriel.helpdesk.dto.TecnicoDTO;
 import com.gabriel.helpdesk.service.interfaces.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,8 @@ public class TecnicoController {
     private TecnicoService tecnicoService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Tecnico> buscaTecnico(@PathVariable(value = "id") Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(tecnicoService.buscaPorId(id));
+    public ResponseEntity<TecnicoDTO> buscaTecnico(@PathVariable(value = "id") Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(new TecnicoDTO(tecnicoService.buscaPorId(id)));
     }
 
 }
