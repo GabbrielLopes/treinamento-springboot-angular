@@ -1,6 +1,7 @@
 package com.gabriel.helpdesk.service;
 
 import com.gabriel.helpdesk.domain.Tecnico;
+import com.gabriel.helpdesk.dto.request.TecnicoRequestDTO;
 import com.gabriel.helpdesk.exception.ObjectNotFoundException;
 import com.gabriel.helpdesk.repository.TecnicoRepository;
 import com.gabriel.helpdesk.service.interfaces.TecnicoService;
@@ -25,5 +26,11 @@ public class TecnicoServiceImpl implements TecnicoService {
     @Override
     public List<Tecnico> buscaTecnicos() {
         return repository.findAll();
+    }
+
+    @Override
+    public Tecnico salvaTecnico(TecnicoRequestDTO tecnicoRequestDTO) {
+        tecnicoRequestDTO.setId(null);
+        return repository.saveAndFlush(new Tecnico(tecnicoRequestDTO));
     }
 }
