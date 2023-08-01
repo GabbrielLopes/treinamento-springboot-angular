@@ -2,7 +2,6 @@ package com.gabriel.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gabriel.helpdesk.domain.enums.Perfil;
-import com.gabriel.helpdesk.dto.TecnicoDTO;
 import com.gabriel.helpdesk.dto.request.TecnicoRequestDTO;
 
 import javax.persistence.Entity;

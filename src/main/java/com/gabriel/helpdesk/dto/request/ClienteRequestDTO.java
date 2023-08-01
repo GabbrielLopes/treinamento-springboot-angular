@@ -1,6 +1,7 @@
 package com.gabriel.helpdesk.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.gabriel.helpdesk.domain.Cliente;
 import com.gabriel.helpdesk.domain.Tecnico;
 import com.gabriel.helpdesk.domain.enums.Perfil;
 import org.hibernate.validator.constraints.br.CPF;
@@ -11,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TecnicoRequestDTO {
+public class ClienteRequestDTO {
 
 
     protected Integer id;
@@ -19,8 +20,8 @@ public class TecnicoRequestDTO {
     @NotBlank(message = "Campo nome é obrigatório.")
     protected String nome;
 
-    @CPF
     @NotBlank(message = "Campo CPF é obrigatório.")
+    @CPF
     protected String cpf;
 
     @NotBlank(message = "Campo e-mail é obrigatório.")
@@ -33,12 +34,12 @@ public class TecnicoRequestDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
-    public TecnicoRequestDTO() {
+    public ClienteRequestDTO() {
         super();
         addPerfis(Perfil.CLIENTE);
     }
 
-    public TecnicoRequestDTO(Integer id, String nome, String cpf, String email, String senha, LocalDate dataCriacao) {
+    public ClienteRequestDTO(Integer id, String nome, String cpf, String email, String senha, LocalDate dataCriacao) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -48,14 +49,14 @@ public class TecnicoRequestDTO {
         addPerfis(Perfil.CLIENTE);
     }
 
-    public TecnicoRequestDTO(Tecnico tecnico) {
-        this.id = tecnico.getId();
-        this.nome = tecnico.getNome();
-        this.cpf = tecnico.getCpf();
-        this.email = tecnico.getEmail();
-        this.senha = tecnico.getSenha();
-        this.perfis = tecnico.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
-        this.dataCriacao = tecnico.getDataCriacao();
+    public ClienteRequestDTO(Cliente cliente) {
+        this.id = cliente.getId();
+        this.nome = cliente.getNome();
+        this.cpf = cliente.getCpf();
+        this.email = cliente.getEmail();
+        this.senha = cliente.getSenha();
+        this.perfis = cliente.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
+        this.dataCriacao = cliente.getDataCriacao();
         addPerfis(Perfil.CLIENTE);
     }
 

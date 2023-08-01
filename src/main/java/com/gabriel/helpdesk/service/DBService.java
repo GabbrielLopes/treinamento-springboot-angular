@@ -8,6 +8,7 @@ import com.gabriel.helpdesk.domain.enums.Prioridade;
 import com.gabriel.helpdesk.domain.enums.Status;
 import com.gabriel.helpdesk.repository.ChamadoRepository;
 import com.gabriel.helpdesk.repository.ClienteRepository;
+import com.gabriel.helpdesk.repository.PessoaRepository;
 import com.gabriel.helpdesk.repository.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,7 @@ import java.util.Arrays;
 public class DBService {
 
     @Autowired
-    private TecnicoRepository tecnicoRepository;
-
-    @Autowired
-    private ClienteRepository clienteRepository;
+    private PessoaRepository pessoaRepository;
 
     @Autowired
     private ChamadoRepository chamadoRepository;
@@ -87,8 +85,7 @@ public class DBService {
         Chamado c5 = new Chamado(null, Prioridade.ALTA, Status.ANDAMENTO, "Chamado 05", "Quinto chamado",
                 tec5, cli5);
 
-        tecnicoRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6));
-        clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5, cli6));
+        pessoaRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6,cli1, cli2, cli3, cli4, cli5, cli6));
         chamadoRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
 
     }
