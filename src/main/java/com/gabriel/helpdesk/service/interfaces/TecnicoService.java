@@ -15,4 +15,6 @@ public interface TecnicoService {
     Tecnico salvaTecnico(TecnicoRequestDTO tecnicoRequestDTO);
 
     Tecnico atualizaTecnico(TecnicoRequestDTO tecnicoRequestDTO);
+
+    void deletarPorId(Integer id);
 }

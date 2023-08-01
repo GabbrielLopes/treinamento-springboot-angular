@@ -49,6 +49,15 @@ public class TecnicoServiceImpl implements TecnicoService {
         return repository.saveAndFlush(tecnicoAntigo);
     }
 
+    @Override
+    public void deletarPorId(Integer id) {
+        Tecnico tecnico = buscaPorId(id);
+        if(!tecnico.getChamados().isEmpty()){
+            throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
+        }
+        repository.deleteById(id);
+    }
+
     private void validaEmailECpf(TecnicoRequestDTO tecnicoRequestDTO) {
         Optional<Pessoa> obj = pessoaRepository.findByCpf(tecnicoRequestDTO.getCpf());
         if (obj.isPresent() && !obj.get().getId().equals(tecnicoRequestDTO.getId())) {
