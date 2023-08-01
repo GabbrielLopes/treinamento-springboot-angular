@@ -4,11 +4,13 @@ import com.gabriel.helpdesk.domain.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 
-    Boolean existsByCpf(String cpf);
+    Optional<Pessoa> findByCpf(String cpf);
 
-    Boolean existsByEmail(String email);
+    Optional<Pessoa> findByEmail(String email);
 
 }

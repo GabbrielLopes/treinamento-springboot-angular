@@ -41,4 +41,9 @@ public class TecnicoController {
         return ResponseEntity.created(uri).build();
     }
 
+    @PutMapping
+    public ResponseEntity<TecnicoDTO> atualizaTecnico(@RequestBody @Valid TecnicoRequestDTO requestDTO){
+        return ResponseEntity.ok().body(new TecnicoDTO(tecnicoService.atualizaTecnico(requestDTO)));
+    }
+
 }

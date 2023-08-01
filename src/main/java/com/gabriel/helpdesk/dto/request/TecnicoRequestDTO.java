@@ -3,9 +3,9 @@ package com.gabriel.helpdesk.dto.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gabriel.helpdesk.domain.Tecnico;
 import com.gabriel.helpdesk.domain.enums.Perfil;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,7 +32,7 @@ public class TecnicoRequestDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
-    public TecnicoRequestDTO(){
+    public TecnicoRequestDTO() {
         super();
         addPerfis(Perfil.CLIENTE);
     }
@@ -86,7 +86,7 @@ public class TecnicoRequestDTO {
         return email;
     }
 
-    public String getSenha(){
+    public String getSenha() {
         return senha;
     }
 
@@ -94,7 +94,7 @@ public class TecnicoRequestDTO {
         this.email = email;
     }
 
-    public void setSenha(String senha){
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 

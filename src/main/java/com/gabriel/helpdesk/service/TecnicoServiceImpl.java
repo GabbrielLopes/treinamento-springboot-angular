@@ -1,5 +1,6 @@
 package com.gabriel.helpdesk.service;
 
+import com.gabriel.helpdesk.domain.Pessoa;
 import com.gabriel.helpdesk.domain.Tecnico;
 import com.gabriel.helpdesk.dto.request.TecnicoRequestDTO;
 import com.gabriel.helpdesk.exception.DataIntegrityViolationException;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TecnicoServiceImpl implements TecnicoService {
@@ -35,15 +37,26 @@ public class TecnicoServiceImpl implements TecnicoService {
     @Override
     public Tecnico salvaTecnico(TecnicoRequestDTO tecnicoRequestDTO) {
         tecnicoRequestDTO.setId(null);
-        validaCpfAndEmail(tecnicoRequestDTO);
+        validaEmailECpf(tecnicoRequestDTO);
         return repository.saveAndFlush(new Tecnico(tecnicoRequestDTO));
     }
 
-    private void validaCpfAndEmail(TecnicoRequestDTO tecnicoRequestDTO) {
-        if (pessoaRepository.existsByCpf(tecnicoRequestDTO.getCpf())) {
+    @Override
+    public Tecnico atualizaTecnico(TecnicoRequestDTO tecnicoRequestDTO) {
+        Tecnico tecnicoAntigo = buscaPorId(tecnicoRequestDTO.getId());
+        validaEmailECpf(tecnicoRequestDTO);
+        tecnicoAntigo = new Tecnico(tecnicoRequestDTO);
+        return repository.saveAndFlush(tecnicoAntigo);
+    }
+
+    private void validaEmailECpf(TecnicoRequestDTO tecnicoRequestDTO) {
+        Optional<Pessoa> obj = pessoaRepository.findByCpf(tecnicoRequestDTO.getCpf());
+        if (obj.isPresent() && !obj.get().getId().equals(tecnicoRequestDTO.getId())) {
             throw new DataIntegrityViolationException("CPF já cadastrado.");
         }
-        if (pessoaRepository.existsByEmail(tecnicoRequestDTO.getEmail())) {
+
+        obj = pessoaRepository.findByEmail(tecnicoRequestDTO.getCpf());
+        if (obj.isPresent() && !obj.get().getId().equals(tecnicoRequestDTO.getId())) {
             throw new DataIntegrityViolationException("E-mail já cadastrado");
         }
     }

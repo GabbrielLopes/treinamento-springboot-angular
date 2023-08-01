@@ -13,4 +13,6 @@ public interface TecnicoService {
     List<Tecnico> buscaTecnicos();
 
     Tecnico salvaTecnico(TecnicoRequestDTO tecnicoRequestDTO);
+
+    Tecnico atualizaTecnico(TecnicoRequestDTO tecnicoRequestDTO);
 }
