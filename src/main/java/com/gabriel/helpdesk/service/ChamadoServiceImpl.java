@@ -14,6 +14,7 @@ import com.gabriel.helpdesk.service.interfaces.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,7 +43,13 @@ public class ChamadoServiceImpl implements ChamadoService {
     }
 
     @Override
-    public Chamado salvaOuAtualizaChamado(ChamadoDTO requestDTO) {
+    public Chamado salvaChamado(ChamadoDTO requestDTO) {
+        return repository.saveAndFlush(novoChamado(requestDTO));
+    }
+
+    @Override
+    public Chamado atualizaChamado(ChamadoDTO requestDTO) {
+        buscaPorId(requestDTO.getId());
         return repository.saveAndFlush(novoChamado(requestDTO));
     }
 
@@ -54,7 +61,10 @@ public class ChamadoServiceImpl implements ChamadoService {
         if (Objects.nonNull(requestDTO.getId())) {
             chamado.setId(requestDTO.getId());
         }
-
+        chamado.setDataFechamento(requestDTO.getDataFechamento());
+        if(requestDTO.getPrioridade().equals(2)){
+            chamado.setDataFechamento(LocalDate.now());
+        }
         chamado.setTecnico(tecnico);
         chamado.setCliente(cliente);
         chamado.setPrioridade(Prioridade.toEnum(requestDTO.getPrioridade()));

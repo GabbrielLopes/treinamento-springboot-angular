@@ -10,5 +10,7 @@ public interface ChamadoService {
     Chamado buscaPorId(Integer id);
     List<Chamado> buscaChamados();
 
-    Chamado salvaOuAtualizaChamado(ChamadoDTO requestDTO);
+    Chamado salvaChamado(ChamadoDTO requestDTO);
+
+    Chamado atualizaChamado(ChamadoDTO requestDTO);
 }
