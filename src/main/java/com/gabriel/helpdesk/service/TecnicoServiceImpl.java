@@ -9,6 +9,7 @@ import com.gabriel.helpdesk.repository.PessoaRepository;
 import com.gabriel.helpdesk.repository.TecnicoRepository;
 import com.gabriel.helpdesk.service.interfaces.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class TecnicoServiceImpl implements TecnicoService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @Override
     public Tecnico buscaPorId(Integer id) {
@@ -37,6 +41,7 @@ public class TecnicoServiceImpl implements TecnicoService {
     @Override
     public Tecnico salvaTecnico(TecnicoRequestDTO tecnicoRequestDTO) {
         tecnicoRequestDTO.setId(null);
+        tecnicoRequestDTO.setSenha(encoder.encode(tecnicoRequestDTO.getSenha()));
         validaEmailECpf(tecnicoRequestDTO);
         return repository.saveAndFlush(new Tecnico(tecnicoRequestDTO));
     }

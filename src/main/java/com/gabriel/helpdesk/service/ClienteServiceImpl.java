@@ -9,6 +9,7 @@ import com.gabriel.helpdesk.repository.ClienteRepository;
 import com.gabriel.helpdesk.repository.PessoaRepository;
 import com.gabriel.helpdesk.service.interfaces.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
 
     @Override
     public Cliente buscaPorId(Integer id) {
@@ -37,6 +42,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente salvaCliente(ClienteRequestDTO cliente) {
         cliente.setId(null);
+        cliente.setSenha(encoder.encode(cliente.getSenha()));
         validaEmailECpf(cliente);
         return repository.saveAndFlush(new Cliente(cliente));
     }
